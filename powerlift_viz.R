@@ -61,7 +61,9 @@ ggplot(lifts,
   labs(
     x = "Lift",
     y = "Weight",
-    title = "Distribution of Lifts, by Gender"
+    title = "Distribution of Lifts",
+    subtitle = paste0("This plot shows the distribution of weight lifted for males", 
+    "and females across different lifts")
   ) +
   scale_color_manual(
     values = c("#fb8072", "#80b1d3"),
@@ -77,6 +79,9 @@ ggplot(lifts,
     text = element_text(family = "Calibri"),
     axis.text = element_text(size = 10),
     axis.title = element_text(size = 14),
-    plot.title = element_text(size = 18, hjust = .5)
+    plot.title = element_text(size = 18, hjust = 0),
+    plot.subtitle = element_text(size = 12, hjust = 0)
   )
 #note that commented out portion will create horizontal bars at median. decided it didn't look great, though
+
+ggsave("gender_vios.jpeg", device = "jpeg")
