@@ -62,7 +62,11 @@ ggplot(lifts,
     x = "Lift",
     y = "Weight",
     title = "Distribution of Lifts",
+<<<<<<< HEAD
     subtitle = paste0("This plot shows the distribution of weight lifted for males", 
+=======
+    subtitle = paste0("This plot shows the distribution of weight lifted formales", 
+>>>>>>> bb1a9172df3cba602164cac1c6ef5bafab19d3ac
     "and females across different lifts")
   ) +
   scale_color_manual(
