@@ -25,8 +25,8 @@ horror <- horror_movies %>%
   filter(year >= 2012) %>%
   group_by(year) %>%
   mutate(sum_year = n()) %>%
-  mutate(prop_sent_count_year = sent_count_year/sum_year) %>%
-  mutate(sentiment = tools::toTitleCase(sentiment)) %>%
+  mutate(prop_sent_count_year = sent_count_year/sum_year,
+         sentiment = tools::toTitleCase(sentiment)) %>%
   arrange(year)
 
 #plan is to count sentiments over time
