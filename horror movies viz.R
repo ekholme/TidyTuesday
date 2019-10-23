@@ -12,8 +12,8 @@ horror_movies <- readr::read_csv("https://raw.githubusercontent.com/rfordatascie
 #a bit of cleaning
 horror <- horror_movies %>%
   extract(col = title, into = c("title", "year"), regex = "(.*) \\((\\d+)\\)") %>%
-  mutate(year = as.integer(year)) %>%
-  mutate(id = row_number()) %>%
+  mutate(year = as.integer(year),
+         id = row_number()) %>%
   select(id, everything()) %>%
   unnest_tokens(word, title) %>%
   anti_join(stop_words) %>%
