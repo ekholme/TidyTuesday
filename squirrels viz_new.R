@@ -40,5 +40,8 @@ cp_map +
   theme(
     plot.background = element_rect(fill = "#f2eadf"),
     text = element_text(family = "Rockwell"),
-    panel.border = element_rect(color = "grey55", fill = NA)
+    panel.border = element_rect(color = "grey55", fill = NA),
+    plot.margin=grid::unit(c(0,0,0,0), "mm")
   )
+
+ggsave(filename = "squirrels.jpeg", device = "jpeg")
