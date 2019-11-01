@@ -7,10 +7,10 @@ library(extrafont)
 nyc_squirrels <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-10-29/nyc_squirrels.csv")
 
 cp_6 <- get_map("Central Park, New York, NY", zoom = 14, maptype = "toner-lines", source = "stamen", color = "bw")
+#played around with several versions of this -- going with the 6th iteration
 
 cp_map <- ggmap(cp_6)
 
-#let's go with cp_6 for now!
 squirrelz <- nyc_squirrels %>%
   mutate(dog_near = if_else(
     str_detect(other_activities, "dog") | str_detect(other_interactions, "dog"), "Y", "N"
