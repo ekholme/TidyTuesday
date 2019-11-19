@@ -1,0 +1,62 @@
+---
+title: "NZ Bird of the Year"
+author: "EE"
+date: "11/18/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+
+```
+
+Reading in and initially exploring data
+```{r read explore}
+nz_bird <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-11-19/nz_bird.csv")
+
+
+birbs <- nz_bird %>%
+  extract(date, into = c("year", "month", "day"), regex = "(\\d{4})-(\\d{2})-(\\d{2})", remove = FALSE)
+
+#getting a quick viz of birds by votes
+birbs %>%
+  count(vote_rank, bird_breed, sort = TRUE) %>%
+  filter(n > 1000 & !is.na(vote_rank)) %>%
+  ggplot(aes(x = fct_reorder(bird_breed, n, .fun = max, na.rm = TRUE), y = n)) +
+  geom_col() +
+  facet_wrap(~vote_rank) +
+  coord_flip()
+#ok, so, it looks like the max doesn't get faceted
+
+#let's try the above again with just vote_1
+birbs %>%
+  count(vote_rank, bird_breed, sort = TRUE) %>%
+  filter(n > 500 & vote_rank == "vote_1") %>%
+  ggplot(aes(x = fct_reorder(bird_breed, n, .fun = max, na.rm = TRUE), y = n)) +
+  geom_col() +
+  coord_flip()
+
+n_voters <- birbs %>%
+  count(vote_rank) %>%
+  slice(1) %>%
+  pull(n)
+#ok, so, we have 43460 voters
+```
+
+
+Let's look to see if there are any trends over time
+```{r over time}
+#getting a random sample of birds
+samp_birds <- sample(unique(birbs$bird_breed), size = 10, replace = FALSE)
+
+birbs %>%
+  filter(is.element(bird_breed, samp_birds)) %>%
+  count(vote_rank, bird_breed, date) %>%
+  ggplot(aes(x = date, y = n, color = bird_breed)) +
+  geom_line() +
+  geom_point() +
+  facet_grid(rows = vars(vote_rank))
+```
+
+
