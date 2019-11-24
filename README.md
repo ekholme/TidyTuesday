@@ -1,6 +1,8 @@
 My contributions to [#TidyTuesday.](https://github.com/rfordatascience/tidytuesday)
 
 ## Most recent (finished) contribution:
+![](https://github.com/ekholme/TidyTuesday/blob/master/46%20-%20cran%20code/cran_plot.jpeg)
+
 [Week 46 - Cran Code](https://github.com/ekholme/TidyTuesday/tree/master/46%20-%20cran%20code)
 
 ### Previous contributions
