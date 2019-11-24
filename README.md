@@ -2,11 +2,10 @@ My contributions to [#TidyTuesday.](https://github.com/rfordatascience/tidytuesd
 
 ## Most recent (finished) contribution:
 [Week 46 - Cran Code](https://github.com/ekholme/TidyTuesday/tree/master/46%20-%20cran%20code)
+
 An exploration of the comment-to-code ratio in R packages
 
 ![](https://github.com/ekholme/TidyTuesday/blob/master/46%20-%20cran%20code/cran_plot.jpeg)
-
-[Week 46 - Cran Code](https://github.com/ekholme/TidyTuesday/tree/master/46%20-%20cran%20code)
 
 ### Previous contributions
 [Week 44 - Squirrels!](https://github.com/ekholme/TidyTuesday/tree/master/44%20-%20squirrels)
