@@ -6,4 +6,6 @@ My contributions to [#TidyTuesday.](https://github.com/rfordatascience/tidytuesd
 ### Previous contributions
 [Week 44 - Squirrels!](https://github.com/ekholme/TidyTuesday/tree/master/44%20-%20squirrels)
 
+[Week 43 - Horror Movies](https://github.com/ekholme/TidyTuesday/tree/master/43%20-%20horror%20movies)
 
+[Week 41 - Power Lifting](https://github.com/ekholme/TidyTuesday/tree/master/41%20-%20powerlifting)
