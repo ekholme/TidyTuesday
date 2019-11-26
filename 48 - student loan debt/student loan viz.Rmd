@@ -13,15 +13,36 @@ library(janitor)
 library(here)
 
 loans <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-11-26/loans.csv")
+
+theme_set(theme_light())
 ```
 
 Taking a look at dataset and doing some cleaning
 ```{r cleaning}
 loanz <- loans %>%
-  mutate(year_qtr = (year + (quarter - 1)*.25))
+  rename(repaid = total) %>%
+  mutate(year_qtr = (year + (quarter - 1)*.25),
+         balance = starting - repaid,
+         payment_starting_ratio = repaid/starting)
+
+#ok, so, maybe let's look a the ratio of repaid to balance
+loanz %>%
+  group_by(year_qtr) %>%
+  summarize(p_s_ratio = mean(payment_starting_ratio, na.rm = TRUE)) %>%
+  ungroup() %>%
+  ggplot() +
+  geom_point(aes(x = year_qtr, y = p_s_ratio))
 
 loanz %>%
-  distinct(agency_name)
+  group_by(year_qtr) %>%
+  summarize_at(.vars = c("repaid", "balance"),
+               .funs = sum) %>%
+  pivot_longer(cols = -year_qtr,
+               names_to = "payment_type",
+               values_to = "amt") %>%
+  ggplot() +
+  geom_point(aes(x = year_qtr, y = amt, color = payment_type))
+
 
 
 ```
