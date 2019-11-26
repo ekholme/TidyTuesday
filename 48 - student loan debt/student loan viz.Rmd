@@ -1,0 +1,28 @@
+---
+title: "Student Loan Debt"
+author: "EE"
+date: "11/25/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(janitor)
+library(here)
+
+loans <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-11-26/loans.csv")
+```
+
+Taking a look at dataset and doing some cleaning
+```{r cleaning}
+loanz <- loans %>%
+  mutate(year_qtr = (year + (quarter - 1)*.25))
+
+loanz %>%
+  distinct(agency_name)
+
+
+```
+
