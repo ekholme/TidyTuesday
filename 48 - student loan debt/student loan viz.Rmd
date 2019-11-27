@@ -1,48 +1,77 @@
 ---
 title: "Student Loan Debt"
 author: "EE"
-date: "11/25/2019"
+date: "11/26/2019"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, echo = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
 library(tidyverse)
 library(janitor)
 library(here)
+library(extrafont)
+library(broom)
+library(nationalparkcolors)
 
 loans <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-11-26/loans.csv")
 
+great_basin <- park_palette("GreatBasin")
+
 theme_set(theme_light())
+
 ```
 
-Taking a look at dataset and doing some cleaning
-```{r cleaning}
+Cleaning up and the data and visualizing
+```{r cleaning & viz}
 loanz <- loans %>%
   rename(repaid = total) %>%
   mutate(year_qtr = (year + (quarter - 1)*.25),
          balance = starting - repaid,
-         payment_starting_ratio = repaid/starting)
+         payment_starting_ratio = repaid/starting) %>%
+  add_count(agency_name, name = "agency_count")
 
-#ok, so, maybe let's look a the ratio of repaid to balance
+t_test_mod <- function(df) {
+  t.test(df$payment_starting_ratio, mu = 0)
+}
+
 loanz %>%
-  group_by(year_qtr) %>%
+  group_by(agency_name) %>%
+  filter(agency_count > 5) %>%
+  nest() %>%
+  mutate(mod = map(data, t_test_mod)) %>%
+  mutate(ci_low = map(mod, glance) %>%
+           map_dbl("conf.low"),
+         ci_high = map(mod, glance) %>%
+           map_dbl("conf.high")) %>%
+  ungroup() %>%
+  unnest(data) %>%
+  group_by(agency_name, agency_count, ci_low, ci_high) %>%
   summarize(p_s_ratio = mean(payment_starting_ratio, na.rm = TRUE)) %>%
   ungroup() %>%
-  ggplot() +
-  geom_point(aes(x = year_qtr, y = p_s_ratio))
+  filter(is.finite(p_s_ratio)) %>%
+  ggplot(aes(x = fct_reorder(agency_name, p_s_ratio, identity), y = p_s_ratio)) +
+  geom_point(color = great_basin[[3]]) +
+  geom_errorbar(aes(ymin = ci_low, ymax = ci_high), color = great_basin[[3]]) +
+  coord_flip() +
+  labs(
+    x = "Collection Agency",
+    y = "Dollars Collected:Debt Owned",
+    title = "Do Debt Collection Agencies Differ in Effectiveness?",
+    subtitle = "At first glance, some agencies seem more effective. However, after taking their number of collections\ninto account, we see that they don't differ significantly.",
+    caption = "Data: Department of Education | Viz: Eric Ekholm (@ekholm_e)"
+  ) +
+  theme(text = element_text(family = "Rockwell", size = 10, color = great_basin[[3]]),
+    rect = element_rect(fill = great_basin[[4]]),
+    axis.text = element_text(size = 8, color = great_basin[[3]]),
+    panel.grid = element_blank(),
+    panel.border = element_blank(),
+    plot.title = element_text(hjust = 0, size = 16),
+    plot.background = element_rect(),
+    panel.background = element_rect(fill = great_basin[[4]]))
 
-loanz %>%
-  group_by(year_qtr) %>%
-  summarize_at(.vars = c("repaid", "balance"),
-               .funs = sum) %>%
-  pivot_longer(cols = -year_qtr,
-               names_to = "payment_type",
-               values_to = "amt") %>%
-  ggplot() +
-  geom_point(aes(x = year_qtr, y = amt, color = payment_type))
-
+ggsave(here("48 - student loan debt/debt_viz.jpeg"), device = "jpeg", height = 7, width = 10)
 
 
 ```
