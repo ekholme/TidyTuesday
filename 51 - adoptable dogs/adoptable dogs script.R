@@ -68,10 +68,11 @@ axis_labs <- df %>%
 ggplot(df, aes(as_factor(id), y = breed_name_n, fill = breed_primary)) +
   geom_col(alpha = .7) +
   theme_void() +
-  ylim(-20, 50) +
+  ylim(-10, 47) +
   theme(
     plot.margin = unit(c(-1, -2, -1, -2), "cm"),
-    legend.position = "none"
+    legend.position = "none",
+    panel.grid = element_blank()
   ) +
   coord_polar() +
   geom_text(aes(x = id, y = breed_name_n + 1, label = name, hjust = 0, angle = angle), color = "black", size = 2.5, alpha = .6) +
