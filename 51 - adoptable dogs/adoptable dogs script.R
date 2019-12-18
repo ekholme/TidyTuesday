@@ -2,29 +2,13 @@
 
 library(tidyverse)
 library(here)
+library(wesanderson)
+library(extrafont)
 set.seed(0408)
 
-dog_moves <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-12-17/dog_moves.csv')
-dog_travel <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-12-17/dog_travel.csv')
+wes_pal <- wes_palette("Darjeeling1")
+
 dog_descrips<- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-12-17/dog_descriptions.csv')
-
-dog_descrips %>%
-  count(breed_primary, sort = TRUE) %>%
-  ggplot(aes(x = fct_reorder(breed_primary, n), y = n)) +
-  geom_col() +
-  coord_flip()
-
-dog_descrips %>%
-  ggplot(aes(age)) +
-  geom_bar()
-
-dog_descrips %>%
-  ggplot(aes(sex)) +
-  geom_bar()
-
-dog_descrips %>%
-  count(special_needs)
-#we see roughly 56k without special needs and 2.1k with special needs
 
 name_breed_counts <- dog_descrips %>%
   mutate(name = str_replace_all(name, "BELLA", "Bella")) %>%
@@ -50,34 +34,35 @@ df <- bind_rows(name_breed_counts, empty) %>%
   arrange(breed_primary) %>%
   mutate(id = row_number(),
          breed_primary = as_factor(breed_primary)) %>%
-  select(id, breed_primary, name, breed_name_n)
-
-df <- df %>%
-  mutate(tot_row = nrow(df),
+  select(id, breed_primary, name, breed_name_n) %>%
+  mutate(tot_row = nrow(.),
          angle = 90-360*(id-.5)/tot_row,
          hjust = if_else(angle < -90, 1, 0),
          use_angle = if_else(angle < -90, angle + 180, angle))
-
-axis_labs <- df %>%
-  group_by(breed_primary) %>%
-  summarize(start = min(id),
-            end = max(id) - empty_bars) %>%
-  mutate(title = (start+end)/2) %>%
-  ungroup()
 
 ggplot(df, aes(as_factor(id), y = breed_name_n, fill = breed_primary)) +
   geom_col(alpha = .7) +
   theme_void() +
   ylim(-10, 47) +
-  theme(
-    plot.margin = unit(c(-1, -2, -1, -2), "cm"),
-    legend.position = "none",
-    panel.grid = element_blank()
-  ) +
   coord_polar() +
-  geom_text(aes(x = id, y = breed_name_n + 1, label = name, hjust = 0, angle = angle), color = "black", size = 2.5, alpha = .6) +
-  #geom_segment(data = axis_labs, aes(x = start, y = -2, xend = end, yend = -2), color = "black")
-  geom_text(data = axis_labs, aes(x = title, y = -2, label = breed_primary), color = "black") #still need to play around wtih text position
-  #maybe makes sense to put it on the outside. Plus colors
+  geom_text(aes(x = id, y = breed_name_n + 1, label = name, hjust = 0, angle = angle), color = "black", size = 3, alpha = .9, 
+            family = "Rockwell") +
+  scale_fill_manual(
+    values = c(wes_pal[[1]], wes_pal[[3]], wes_pal[[4]]),
+    name = NULL,
+    labels = distinct(df, breed_primary)
+  ) +
+  annotate(geom = "text", x = 0, y = 35, label = "Most Popular Names of Most Common Shelter Breeds", family = "Rockwell",
+           size = 8) +
+  annotate(geom = "text", x = 0, y = 30, label = "Bella is very popular for all breeds. Zues mostly just for pitties.", family = "Rockwell", size = 4,
+           alpha = .8) +
+  theme(
+    text = element_text(family = "Rockwell"),
+    panel.background = element_rect(fill = wes_pal[[5]]),
+    plot.background = element_rect(fill = wes_pal[[5]]),
+    legend.position = c(.75, .25),
+    panel.grid = element_blank(),
+    plot.margin = grid::unit(c(-25, -25, -25, -25), "mm")
+  )
 
-#check out this code for help: https://www.r-graph-gallery.com/297-circular-barplot-with-groups.html
+ggsave(here("51 - adoptable dogs", "dog_names.jpeg"), device = "jpeg")
