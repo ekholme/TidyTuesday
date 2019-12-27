@@ -11,6 +11,8 @@ Network plot showing connections between lyrics in Bing Crosby's White Christmas
 
 Circular barplot with most popular names of most common shelter breeds.
 
+![](https://github.com/ekholme/TidyTuesday/blob/master/51%20-%20adoptable%20dogs/dog_names.jpeg)
+
 [Week 49 - Philly Parking Tickets](https://github.com/ekholme/TidyTuesday/blob/master/49%20-%20philly%20parking/philly%20parking%20script.R)
 
 Looking at day-to-day correlations of the number of tickets given across the four most common ticket types.
