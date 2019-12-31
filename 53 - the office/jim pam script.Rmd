@@ -1,0 +1,68 @@
+---
+title: "Jim and Pam"
+author: "EE"
+date: "12/31/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(schrute)
+library(tidytext)
+library(hrbrthemes)
+library(extrafont)
+```
+
+Goal here is to look at the by-episode average sentiment of Jim and Pam over the span of the show
+
+Reading in data & getting words from Jim and Pam
+```{r read and clean}
+office <- theoffice
+
+jim_pam_words <- office %>%
+  arrange(season, episode) %>%
+  distinct(episode_name) %>%
+  mutate(episode_num = row_number()) %>%
+  left_join(office, by = "episode_name") %>%
+  filter(str_detect(character, "^Jim$|^Pam$")) %>%
+  unnest_tokens(word, text_w_direction) %>%
+  anti_join(stop_words)
+```
+
+Getting sentiment scores using the Bing lexicon
+```{r get sentiments}
+jim_pam_sent <- jim_pam_words %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(episode_num, episode_name, character, sentiment) %>%
+  pivot_wider(names_from = sentiment,
+              values_from = n) %>%
+  mutate_at(vars(c("positive", "negative")),
+            ~replace_na(., 0)) %>%
+  mutate(net_sent = positive - negative) 
+```
+
+And now we can graph?
+```{r plotting}
+jim_pam_graph <- jim_pam_sent %>%
+ggplot(aes(x = episode_num, y = net_sent)) +
+  geom_col() +
+  facet_wrap(~ character, ncol = 1) +
+  theme_ipsum() +
+  geom_vline(xintercept = 95, color = "steelblue") +
+  annotate(geom = "text", x = 95, y =  13, label = "Wedding", hjust = 0, size = 2.5) +
+  labs(
+    x = "Episode Number",
+    y = "Net Sentiment",
+    title = "Jim and Pam: A Love Story",
+    subtitle = "This plot shows the net sentiment of Jim and Pam in each episode of The Office across the entire show.\nSentiment is estimated from dialogue and stage directions.",
+    caption = "Data from the schrute package | Viz by Eric Ekholm (@ekholm_e)"
+  ) +
+  theme(
+    plot.subtitle = element_text(size = 11)
+  )
+
+ggsave(here::here("53 - the office/jim_pam_sentiments.jpg"), plot = jim_pam_graph, device = "jpg")
+```
+
