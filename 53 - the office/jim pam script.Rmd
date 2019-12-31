@@ -43,7 +43,7 @@ jim_pam_sent <- jim_pam_words %>%
   mutate(net_sent = positive - negative) 
 ```
 
-And now we can graph?
+And now we can graph
 ```{r plotting}
 jim_pam_graph <- jim_pam_sent %>%
 ggplot(aes(x = episode_num, y = net_sent)) +
