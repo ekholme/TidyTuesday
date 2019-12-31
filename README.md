@@ -1,12 +1,18 @@
 My contributions to [#TidyTuesday.](https://github.com/rfordatascience/tidytuesday)
 
 ## Most recent (finished) contribution:
+[Week 53 - The Office Text](https://github.com/ekholme/TidyTuesday/blob/master/53%20-%20the%20office/jim%20pam%20script.Rmd)
+
+Tracking the sentiments of Jim and Pam over each episode of The Office.
+
+![](https://github.com/ekholme/TidyTuesday/blob/master/53%20-%20the%20office/jim_pam_sentiments.jpg)
+### Previous contributions
 [Week 52 - Christmas Songs](https://github.com/ekholme/TidyTuesday/blob/master/52%20-%20christmas%20songs/christmas%20songs%20script.R)
 
 Network plot showing connections between lyrics in Bing Crosby's White Christmas album.
 
 ![](https://github.com/ekholme/TidyTuesday/blob/master/52%20-%20christmas%20songs/cosby_network.jpeg)
-### Previous contributions
+
 [Week 51 - Adoptable Dogs](https://github.com/ekholme/TidyTuesday/blob/master/51%20-%20adoptable%20dogs/adoptable%20dogs%20script.R)
 
 Circular barplot with most popular names of most common shelter breeds.
