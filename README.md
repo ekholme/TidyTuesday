@@ -1,7 +1,11 @@
 My contributions to [#TidyTuesday.](https://github.com/rfordatascience/tidytuesday)
 
 ## Most recent (finished) contribution:
-[2020 - Week 3 - Common Passwords]()
+[2020 - Week 3 - Common Passwords](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%203%20-%20passwords/passwords%20script.R)
+
+Looking at the strength of association between a given letter and the subsequent letters in passwords.
+
+![](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%203%20-%20passwords/password_pairs_viz.jpg)
 
 ### Previous contributions
 [Week 53 - The Office Text](https://github.com/ekholme/TidyTuesday/blob/master/53%20-%20the%20office/jim%20pam%20script.Rmd)
