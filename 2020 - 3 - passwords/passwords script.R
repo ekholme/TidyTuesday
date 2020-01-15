@@ -21,7 +21,7 @@ pair_strengths <- passwords %>%
   select(-names) %>%
   pairwise_cor(letter, id, sort = TRUE, upper = FALSE)
   
-pair_strengths %>%
+pw_graph <- pair_strengths %>%
   top_n(15) %>%
   mutate(paired_chars = paste0(item1, " : ", item2)) %>%
   ggplot(aes(x = fct_reorder(paired_chars, correlation), y = correlation)) +
@@ -47,3 +47,5 @@ pair_strengths %>%
     panel.border = element_blank(),
     plot.subtitle = element_text(face = "italic")
     )
+
+ggsave(here::here("2020 - 3 - passwords/password_pairs_viz.jpg"), plot = pw_graph, device = "jpg")
