@@ -3,6 +3,11 @@ set.seed(0408)
 library(tidyverse)
 library(gghighlight)
 library(patchwork)
+library(ggtext)
+
+#note -- use the bitter font -- will likely need to install
+
+#also need to set a theme up here
 
 attendance <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-04/attendance.csv')
 standings <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-04/standings.csv')
@@ -23,6 +28,11 @@ nfl_colors <-  c("#97233f", "#a71930", "#241773", "#00338d", "#0085ca", "#0b162a
 
 names(nfl_colors) <- teams
 
+colors_tbl <- tibble(
+  team_name = teams,
+  color = nfl_colors
+)
+
 
 #ok, so, tentative plan is to use the standings data to make a 'master' plot with the yearly wins for all teams and then
 #to break out into small multiples below. Can also include some highlighting of interesting trends in the 'master' plot
@@ -39,8 +49,25 @@ main_plot_raw <- standings %>%
   ggplot(aes(x = year, y = wins, color = team_name)) +
   geom_line(size = 2) +
   gghighlight(is.element(total_wins, range(total_wins)), use_direct_label = FALSE, 
-              unhighlighted_params = list(size = 1.5, colour = alpha("grey85", 0.8))) +
+              unhighlighted_params = list(size = 1.5, colour = alpha("grey85", 0.6))) +
   theme_minimal() +
   scale_color_manual(
     values = nfl_colors
   )
+
+standings %>%
+  ggplot(aes(x = year, y = wins, color = team_name)) +
+  geom_line(size = 1) +
+  facet_wrap(~ team_name, ncol = 8) +
+  theme_minimal() +
+  scale_color_manual(
+    values = nfl_colors
+  ) +
+  theme(
+    legend.position = "none",
+    strip.background = element_blank(),
+    strip.text = element_markdown(
+      aes(color = team_name)
+    )
+  )
+  
