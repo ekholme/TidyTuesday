@@ -1,13 +1,19 @@
 My contributions to [#TidyTuesday.](https://github.com/rfordatascience/tidytuesday)
 
 ## Most recent (finished) contribution:
+[2020 - Week 6 - NFL Stats](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%206%20-%20nfl%20attendance/nfl%20attendance%20script.R)
+
+Bars with total wins from 2000-2019 and small multiples showing yearly wins by team.
+
+![](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%206%20-%20nfl%20attendance/full_nfl.jpeg)
+
+### Previous contributions
 [2020 - Week 4 - Spotify](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%204%20-%20spotify/maynaRd%20script.R)
 
 Circle plot with length of songs by Maynard James Keenan's bands.
 
 ![](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%204%20-%20spotify/mjk_circle.jpg)
 
-### Previous contributions
 [2020 - Week 3 - Common Passwords](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%203%20-%20passwords/passwords%20script.R)
 
 Looking at the strength of association between a given letter and the subsequent letters in passwords.
