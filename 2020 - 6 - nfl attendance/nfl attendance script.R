@@ -1,17 +1,24 @@
 set.seed(0408)
 
 library(tidyverse)
-library(gghighlight)
 library(patchwork)
 library(ggtext)
+library(sysfonts)
+library(extrafont)
+library(showtext)
 
-#note -- use the bitter font -- will likely need to install
+font_add_google("Rubik", "rubik")
 
-#also need to set a theme up here
+showtext_auto()
 
-attendance <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-04/attendance.csv')
+theme_set(theme_minimal())
+
+theme_update(
+  legend.position = "none",
+  text = element_text(family = "rubik")
+)
+
 standings <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-04/standings.csv')
-games <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-04/games.csv')
 
 teams <- c("cardinals",  "falcons",  "ravens",  "bills",  "panthers",  "bears",  "bengals",  "browns",
            "cowboys", "broncos", "lions", "packers", "texans", "colts", "jaguars", "chiefs", "chargers", "rams",
@@ -33,29 +40,37 @@ colors_tbl <- tibble(
   color = nfl_colors
 )
 
-
-#ok, so, tentative plan is to use the standings data to make a 'master' plot with the yearly wins for all teams and then
-#to break out into small multiples below. Can also include some highlighting of interesting trends in the 'master' plot
-
-#also note that year goes from 2000 - 2019
 standings <- standings %>%
   group_by(team_name) %>%
   summarize(total_wins = sum(wins, na.rm = TRUE)) %>%
   ungroup() %>%
   left_join(x = standings, y = ., by = "team_name")
 
-
-main_plot_raw <- standings %>%
-  ggplot(aes(x = year, y = wins, color = team_name)) +
-  geom_line(size = 2) +
-  gghighlight(is.element(total_wins, range(total_wins)), use_direct_label = FALSE, 
-              unhighlighted_params = list(size = 1.5, colour = alpha("grey85", 0.6))) +
-  theme_minimal() +
+main_bar <- standings %>%
+  distinct(team_name, total_wins) %>%
+  ggplot(aes(x = fct_reorder(team_name, total_wins), y = total_wins, color = team_name, fill = team_name)) +
+  geom_col() +
+  scale_fill_manual(
+    values = nfl_colors
+  ) +
   scale_color_manual(
     values = nfl_colors
+  ) +
+  scale_y_continuous(
+    expand = c(0, 0)
+  ) +
+  labs(
+    x = "",
+    y = "Wins",
+    title = "Total Wins"
+  ) +
+  coord_flip() +
+  theme(
+    plot.title = element_text(family = "rubik"),
+    panel.grid = element_blank()
   )
 
-standings %>%
+facet_plot <- standings %>%
   ggplot(aes(x = year, y = wins, color = team_name)) +
   geom_line(size = 1) +
   facet_wrap(~ team_name, ncol = 8) +
@@ -63,11 +78,34 @@ standings %>%
   scale_color_manual(
     values = nfl_colors
   ) +
+  scale_y_continuous(
+    expand = c(0, 0)
+  ) +
+  labs(
+    title = "Wins by Season"
+  ) +
   theme(
-    legend.position = "none",
     strip.background = element_blank(),
-    strip.text = element_markdown(
-      aes(color = team_name)
-    )
+    strip.text = element_text(family = "rubik"),
+    legend.position = "none",
+    axis.ticks = element_blank(),
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank()
   )
-  
+
+full_plot <- main_bar + facet_plot + 
+  plot_layout(widths = c(1, 2)) +
+  plot_annotation(
+    title = "NFL Team Performance, 2000 - 2019",
+    subtitle = "These plots show the performance of all 32 NFL teams over the past two decades. In the left panel, we can see total wins from 2000 - 2019. The <span style='color:#002244'>Patriots</span> have won 237 games, whereas the <span style='color:#ff3c00'>Browns</span> have only won 99. In the right panel, we can see the performance of each team over time.",
+    caption = "Data: Pro Football Reference | Viz: Eric Ekholm (@ekholm_e)"
+  ) &
+  theme(
+    text = element_text(family = "rubik"),
+    plot.title = element_text(size = 20, hjust = .5),
+    plot.subtitle = element_textbox()
+  )
+
+x11()
+print(full_plot)
