@@ -1,0 +1,29 @@
+---
+title: "Hotel Bookings"
+author: "EE"
+date: "2/13/2020"
+output: html_document
+---
+
+## Possible options
+
+1. World map with counts of hotels booked (potentially faceted by whether people have kids)
+2. Rank chart of European countries over time (count of number booked; could add gghighlight by largest abs diff from first measurement to last measurement) ** I like this one so far
+3. Some sort of MLM or mapped arima predicting number of bookings in top 10 destinations
+4. Model predicting whether a booking was canceled or not. ** I also like this one
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+
+hotels <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-11/hotels.csv')
+```
+
+```{r}
+hotels %>%
+  count(country, sort = TRUE)
+
+wm <- map_data("world")
+```
+
