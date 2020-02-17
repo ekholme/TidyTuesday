@@ -5,9 +5,6 @@ date: "2/13/2020"
 output: html_document
 ---
 
-## Possible options
-Rank chart of European countries over time (count of number booked; could add gghighlight by largest and smallest seasonal variance)
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
