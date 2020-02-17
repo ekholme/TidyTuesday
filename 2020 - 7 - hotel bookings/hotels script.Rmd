@@ -18,6 +18,7 @@ library(sysfonts)
 library(showtext)
 library(countrycode)
 library(lubridate)
+library(ggrepel)
 
 set.seed(0408)
 
@@ -43,19 +44,30 @@ euro_hotels_ranked <- hotels %>%
   left_join(countries, by = c("country" = "iso3c")) %>%
   filter(continent == "Europe") %>%
   distinct(country, yr_qtr, n, .keep_all = TRUE) %>%
+  add_count(country, name = "cnt") %>%
+  filter(cnt == 9) %>%
   group_by(yr_qtr) %>%
-  mutate(rank = dense_rank(desc(n))) %>%
-  ungroup() %>%
-  filter(rank <= 10)
+  mutate(rank = row_number(desc(n))) %>%
+  ungroup()
+  
 ```
 
 
 ```{r plot}
 euro_hotels_ranked %>%
+  group_by(country) %>%
+  mutate(sd_rank = sd(rank)) %>%
+  ungroup() %>%
   ggplot(aes(x = yr_qtr, y = rank, color = country.name.en)) +
   geom_point() + 
   geom_line() +
+  geom_text(data = euro_hotels_ranked %>%
+                    filter(yr_qtr == "2015-07-01"), aes(label = country.name.en),
+            hjust = 1.1,
+            color = "grey") +
   scale_y_reverse() +
+  expand_limits(x = as.Date(c("2015-01-01", "2017-07-01"))) +
+  gghighlight(is.element(sd_rank, range(sd_rank)), use_direct_label = TRUE) +
   theme_minimal()
 ```
 
