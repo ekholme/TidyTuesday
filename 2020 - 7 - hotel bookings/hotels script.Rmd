@@ -18,7 +18,6 @@ library(sysfonts)
 library(showtext)
 library(countrycode)
 library(lubridate)
-library(ggrepel)
 
 set.seed(0408)
 
@@ -28,6 +27,14 @@ hotels <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tid
 countries <- codelist_panel %>%
   select(country.name.en, iso3c, continent)
 
+background_col <- "#251e3e"
+text_col <- "grey90"
+min_var <- "#a3307e"
+max_var <- "#fea873"
+
+font_add_google("Lobster", "Lobster")
+
+showtext_auto()
 ```
 
 ```{r data manipulation}
@@ -48,26 +55,79 @@ euro_hotels_ranked <- hotels %>%
   filter(cnt == 9) %>%
   group_by(yr_qtr) %>%
   mutate(rank = row_number(desc(n))) %>%
-  ungroup()
+  ungroup() %>%
+    group_by(country) %>%
+  mutate(sd_rank = sd(rank)) %>%
+  ungroup() %>%
+  mutate(line_col = case_when(
+           is.element(sd_rank, max(sd_rank)) ~ max_var,
+           is.element(sd_rank, min(sd_rank)) ~ min_var,
+           TRUE ~ "grey90"
+         ))
   
 ```
 
 
 ```{r plot}
-euro_hotels_ranked %>%
-  group_by(country) %>%
-  mutate(sd_rank = sd(rank)) %>%
-  ungroup() %>%
+
+col_tbl <- euro_hotels_ranked %>%
+  distinct(country.name.en, line_col)
+
+cols <- col_tbl$line_col
+names(cols) <- col_tbl$country.name.en
+
+
+hotel_plot <- euro_hotels_ranked %>%
   ggplot(aes(x = yr_qtr, y = rank, color = country.name.en)) +
-  geom_point() + 
-  geom_line() +
+  geom_point(size = 2, alpha = .8) +
+  geom_line(size = 1.5) +
   geom_text(data = euro_hotels_ranked %>%
-                    filter(yr_qtr == "2015-07-01"), aes(label = country.name.en),
-            hjust = 1.1,
-            color = "grey") +
+                    filter(yr_qtr == "2015-07-01"), aes(x = yr_qtr - 10, label = country.name.en, color = country.name.en),
+            hjust = 1,
+            family = "Lobster",
+            size = 14) +
+  geom_text(data = euro_hotels_ranked %>%
+                    filter(yr_qtr == "2017-07-01"), aes(x = yr_qtr + 10, label = country.name.en, color = country.name.en),
+            hjust = 0,
+            family = "Lobster",
+            size = 14) +
   scale_y_reverse() +
-  expand_limits(x = as.Date(c("2015-01-01", "2017-07-01"))) +
-  gghighlight(is.element(sd_rank, range(sd_rank)), use_direct_label = TRUE) +
-  theme_minimal()
+  scale_x_date(
+    breaks = as.Date(c("2015-01-01", "2016-01-01", "2017-01-01")),
+    labels = c("", "2016", "2017")
+  ) +
+  scale_color_manual(
+    values = cols
+  ) +
+  labs(
+    x = "",
+    y = "Rank",
+    title = "Ranking European Countries by Number of Hotel Reservations",
+    subtitle = "For each fiscal quarter between July 2015 and July 2017, <span style='color:#a3307e'>Portugal</span> had more hotel reservations than any other country. Due to a spike in reservations in Q2 2016, <span style='color:#fea873'>Serbia</span> shows the most variability in its quarterly rankings.",
+    caption = "Data: Antonio, Almeida, & Nunes, 2019 | Viz: Eric Ekholm (@ekholm_e)"
+  ) +
+  expand_limits(x = as.Date(c("2015-01-01", "2017-12-31"))) +
+  gghighlight(is.element(sd_rank, range(sd_rank)), use_direct_label = FALSE,
+              unhighlighted_params = list(color = text_col)) +
+  theme(
+    rect = element_rect(fill = background_col),
+    text = element_text(color = text_col, family = "Lobster", size = 24),
+    plot.title = element_markdown(size = 40),
+    plot.subtitle = element_textbox(size = 32, lineheight = 0),
+    panel.background = element_rect(fill = background_col),
+    plot.background = element_rect(fill = background_col),
+    panel.grid = element_blank(),
+    axis.text.x = element_text(color = text_col, size = 30),
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    axis.ticks = element_blank(),
+    legend.position = "none",
+    plot.caption = element_markdown(size = 20)
+  )
+
+x11()
+print(hotel_plot)
+
+ggsave(here::here("2020 - 7 - hotel bookings/hotel plot.jpg"), device = "jpeg", width = 7*1.5, height = 7)
 ```
 
