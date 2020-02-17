@@ -6,24 +6,56 @@ output: html_document
 ---
 
 ## Possible options
-
-1. World map with counts of hotels booked (potentially faceted by whether people have kids)
-2. Rank chart of European countries over time (count of number booked; could add gghighlight by largest abs diff from first measurement to last measurement) ** I like this one so far
-3. Some sort of MLM or mapped arima predicting number of bookings in top 10 destinations
-4. Model predicting whether a booking was canceled or not. ** I also like this one
+Rank chart of European countries over time (count of number booked; could add gghighlight by largest and smallest seasonal variance)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
 library(tidyverse)
+library(gghighlight)
+library(ggtext)
+library(sysfonts)
+library(showtext)
+library(countrycode)
+library(lubridate)
+
+set.seed(0408)
+
 
 hotels <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-11/hotels.csv')
+
+countries <- codelist_panel %>%
+  select(country.name.en, iso3c, continent)
+
 ```
 
-```{r}
-hotels %>%
-  count(country, sort = TRUE)
+```{r data manipulation}
+euro_hotels_ranked <- hotels %>%
+  mutate(quarter = case_when(
+    is.element(arrival_date_month, c("January", "February", "March")) ~ "Q1",
+    is.element(arrival_date_month, c("April", "May", "June")) ~ "Q2",
+    is.element(arrival_date_month, c("July", "August", "September")) ~ "Q3",
+    is.element(arrival_date_month, c("October", "November", "December")) ~ "Q4"
+  ),
+        yr_qtr = paste0(arrival_date_year, ":", quarter) %>%
+          yq()) %>%
+  count(country, arrival_date_year, quarter, yr_qtr, sort = TRUE) %>%
+  left_join(countries, by = c("country" = "iso3c")) %>%
+  filter(continent == "Europe") %>%
+  distinct(country, yr_qtr, n, .keep_all = TRUE) %>%
+  group_by(yr_qtr) %>%
+  mutate(rank = dense_rank(desc(n))) %>%
+  ungroup() %>%
+  filter(rank <= 10)
+```
 
-wm <- map_data("world")
+
+```{r plot}
+euro_hotels_ranked %>%
+  ggplot(aes(x = yr_qtr, y = rank, color = country.name.en)) +
+  geom_point() + 
+  geom_line() +
+  scale_y_reverse() +
+  theme_minimal()
 ```
 
