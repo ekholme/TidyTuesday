@@ -1,13 +1,19 @@
 My contributions to [#TidyTuesday.](https://github.com/rfordatascience/tidytuesday)
 
 ## Most recent (finished) contribution:
+[2020 - Week 9 - MMR Vaccinations](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%209%20-%20measles/measles%20script.R)
+
+Individual states with the county with the lowest mmr vaccination rate highlighted.
+
+![](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%209%20-%20measles/measles_plot.jpeg)
+
+### Previous contributions
 [2020 - Week 7 - Hotel Reservations](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%207%20-%20hotel%20bookings/hotels%20script.Rmd)
 
 Slopegraph with countries ranked by number of hotel bookings.
 
 ![](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%207%20-%20hotel%20bookings/hotel%20plot.jpg)
 
-### Previous contributions
 [2020 - Week 6 - NFL Stats](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%206%20-%20nfl%20attendance/nfl%20attendance%20script.R)
 
 Bars with total wins from 2000-2019 and small multiples showing yearly wins by team.
