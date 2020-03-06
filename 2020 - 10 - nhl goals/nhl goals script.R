@@ -69,4 +69,5 @@ ovi %>%
     panel.background = element_rect(fill = "grey85"),
     plot.background = element_rect(fill = "grey85")
   )
-  
+
+ggsave(here::here("2020 - 10 - nhl goals/ovi plot.jpg"), device = "jpeg")  
