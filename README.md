@@ -1,13 +1,19 @@
 My contributions to [#TidyTuesday.](https://github.com/rfordatascience/tidytuesday)
 
 ## Most recent (finished) contribution:
+[2020 - Week 13 - Traumatic Brain Injury]
+
+Heatmap showing percent of brain injuries by cause for different age groups
+
+
+
+### Previous contributions
 [2020 - Week 10 - NHL Goals](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2010%20-%20nhl%20goals/nhl%20goals%20script.R)
 
 Analyzing Alex Ovechkin's performance against opposing teams.
 
 ![](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2010%20-%20nhl%20goals/ovi%20plot.jpg)
 
-### Previous contributions
 [2020 - Week 9 - MMR Vaccinations](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%209%20-%20measles/measles%20script.R)
 
 Individual states with the county with the lowest mmr vaccination rate highlighted.

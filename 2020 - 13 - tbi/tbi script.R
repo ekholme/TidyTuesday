@@ -45,6 +45,8 @@ tbi %>%
     text = element_text(family = "Rockwell", color = "white"),
     plot.title = element_markdown(size = 26),
     plot.title.position = "plot",
-    plot.subtitle = element_markdown(size = 14),
+    plot.subtitle = element_markdown(size = 14, face = "italic"),
     legend.position = "bottom"
   )
+
+ggsave(here::here("2020 - 13 - tbi/tbi_heatmap.jpg"), device = "jpeg", width = 11.5, height = 8.5)
