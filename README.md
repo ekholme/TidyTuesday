@@ -1,11 +1,11 @@
 My contributions to [#TidyTuesday.](https://github.com/rfordatascience/tidytuesday)
 
 ## Most recent (finished) contribution:
-[2020 - Week 13 - Traumatic Brain Injury]
+[2020 - Week 13 - Traumatic Brain Injury](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2013%20-%20tbi/tbi%20script.R)
 
 Heatmap showing percent of brain injuries by cause for different age groups
 
-
+![](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2013%20-%20tbi/tbi_heatmap.jpg)
 
 ### Previous contributions
 [2020 - Week 10 - NHL Goals](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2010%20-%20nhl%20goals/nhl%20goals%20script.R)
