@@ -1,13 +1,19 @@
 My contributions to [#TidyTuesday.](https://github.com/rfordatascience/tidytuesday)
 
 ## Most recent (finished) contribution:
+[2020 - Week 16 - Rap Songs](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2016%20-%20rap%20artists/rap%20script.R)
+
+Most acclaimed rap artist each year since 2000
+
+![](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2016%20-%20rap%20artists/rap_bars.png)
+
+### Previous contributions
 [2020 - Week 14 - Beer Production](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2014%20-%20beer%20production/beer%20script.R)
 
 Cartograms showing beer production by state
 
 ![](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2014%20-%20beer%20production/beer_maps.pdf)
 
-### Previous contributions
 [2020 - Week 13 - Traumatic Brain Injury](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2013%20-%20tbi/tbi%20script.R)
 
 Heatmap showing percent of brain injuries by cause for different age groups
