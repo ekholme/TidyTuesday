@@ -1,13 +1,19 @@
 My contributions to [#TidyTuesday.](https://github.com/rfordatascience/tidytuesday)
 
 ## Most recent (finished) contribution:
+[2020 - Week 16 - Rap Songs](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2018%20-%20broadway/les%20mis%20script.R)
+
+Cumulative Broadway ticket sales for Les Mis. 
+
+![](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2018%20-%20broadway/les_mis.png)
+
+### Previous contributions
 [2020 - Week 16 - Rap Songs](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2016%20-%20rap%20artists/rap%20script.R)
 
 Most acclaimed rap artist each year since 2000
 
 ![](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2016%20-%20rap%20artists/rap_bars.png)
 
-### Previous contributions
 [2020 - Week 14 - Beer Production](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2014%20-%20beer%20production/beer%20script.R)
 
 Cartograms showing beer production by state
