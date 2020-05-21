@@ -67,7 +67,7 @@ mk_clean %>%
       y = "",
       x = "",
       title = "America's Dynamic Duo",
-      subtitle = "This plot shows match-level statistics for <span style='color:#041e42'>**Kerri Walsh Jennings**</span> and <span style='color:#c8102e'>**Misty May-Traenor**</span><br>from 2003 to 2016. Not surprisingly, Kerri tends to get more blocks, and<br>Misty tends to get more digs.",
+      subtitle = "This plot shows match-level statistics for <span style='color:#041e42'>**Kerri Walsh Jennings**</span> and <span style='color:#c8102e'>**Misty May-Treanor**</span><br>from 2003 to 2016. Not surprisingly, Kerri tends to get more blocks, and<br>Misty tends to get more digs.",
       caption = "Data: BigTimeStats | Viz: Eric Ekholm (@ekholm_e)"
     ) +
     scale_fill_manual(
