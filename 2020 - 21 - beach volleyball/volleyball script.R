@@ -34,14 +34,11 @@ mk_tbl <- vb_matches %>%
   
 mk_clean <- mk_tbl %>%
   mutate(date = as_date(date)) %>%
-  filter(!is.na(tot_attacks)) %>%
+  filter(!is.na(tot_attacks)) %>% #this to retain only matches with more detailed stats (kills, attacks, digs, etc)
   pivot_longer(cols = starts_with("tot_"),
                names_to = "stat",
                values_to = "vals") %>%
-  filter(!is.na(vals)) %>%
-  group_by(match_num) %>%
-  filter(n() >= 2) %>%
-  ungroup() %>%
+  filter(!is.na(vals)) %>% #similar to the previous !is.na() filter but will get anything the previous step missed -- possibly redundant
   arrange(date) %>%
   mutate(mk_id = group_indices(., date, match_num),
          name = str_remove_all(name, " .*"),
@@ -49,7 +46,7 @@ mk_clean <- mk_tbl %>%
          vals = if_else(name == "Kerri", -1*vals, vals)) %>%
   select(-c("player", "birthdate", "age", "hgt")) %>%
   group_by(name, stat) %>%
-  mutate(rolled_val = roll_mean(vals, n = 10L, na.rm = FALSE, fill = NA_real_, align = "right")) %>%
+  mutate(rolled_val = roll_mean(vals, n = 10L, na.rm = FALSE, fill = NA_real_, align = "right")) %>% #calculating 10-match rolling averages to smooth out some variability and reduce # of gaps
   ungroup()
 
 labels <- range(mk_clean$date) %>% as.character()
@@ -75,11 +72,11 @@ mk_clean %>%
     ) +
     scale_x_continuous(
       breaks = brks,
-      labels = labels
+      labels = labels 
     ) +
     scale_y_continuous(
       n.breaks = 3,
-      labels = abs
+      labels = abs #these are superfluous now bc I dropped y-axis text, but this formatted the number of breaks and made the text absolute value
     ) +
     theme(
       plot.background = element_rect(fill = sand),
