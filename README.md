@@ -3,7 +3,7 @@ My contributions to [#TidyTuesday.](https://github.com/rfordatascience/tidytuesd
 ## Most recent (finished) contribution:
 [2020 - Week 21 - Beach Volleyball](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2021%20-%20beach%20volleyball/volleyball%20script.R)
 
-Cumulative Broadway ticket sales for Les Mis. 
+Stats for Kerri Walsh Jennings and Misty May-Treanor over time. 
 
 ![](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2021%20-%20beach%20volleyball/may_walsh.png)
 
