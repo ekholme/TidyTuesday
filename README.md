@@ -1,13 +1,19 @@
 My contributions to [#TidyTuesday.](https://github.com/rfordatascience/tidytuesday)
 
 ## Most recent (finished) contribution:
+[2020 - Week 24 - African American Achievements](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2024%20-%20african%20american%20achievements/black%20scientists%20script.R)
+
+Notable black scientists, according to [Wikipedia](https://en.wikipedia.org/wiki/List_of_African-American_inventors_and_scientists)
+
+![](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2024%20-%20african%20american%20achievements/scientists.png)
+
+### Previous contributions
 [2020 - Week 21 - Beach Volleyball](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2021%20-%20beach%20volleyball/volleyball%20script.R)
 
 Stats for Kerri Walsh Jennings and Misty May-Treanor over time. 
 
 ![](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2021%20-%20beach%20volleyball/may_walsh.png)
 
-### Previous contributions
 [2020 - Week 18 - Broadway Musicals](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2018%20-%20broadway/les%20mis%20script.R)
 
 Cumulative Broadway ticket sales for Les Mis. 
