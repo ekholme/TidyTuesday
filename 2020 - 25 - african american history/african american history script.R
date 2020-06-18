@@ -79,6 +79,6 @@ census_use %>%
   ) +
   guides(fill = guide_colorbar(barwidth = 6, barheight = .5, title.position = "top", title.hjust = .5))
 
-ggsave(here::here("2020 - 25 - african american history/test.png"), device = "png", width = 20, height = 5.45, unit = "cm")
+ggsave(here::here("2020 - 25 - african american history/slavery_map_prog.png"), device = "png", width = 20, height = 5.45, unit = "cm")
 
 

@@ -1,13 +1,19 @@
 My contributions to [#TidyTuesday.](https://github.com/rfordatascience/tidytuesday)
 
 ## Most recent (finished) contribution:
+[2020 - Week 25 - African American History](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2025%20-%20african%20american%20history/african%20american%20history%20script.RR)
+
+Progression of enslaved vs free African Americans in the US
+
+![](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2025%20-%20african%20american%20history/slavery_map_prog.png)
+
+### Previous contributions
 [2020 - Week 24 - African American Achievements](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2024%20-%20african%20american%20achievements/black%20scientists%20script.R)
 
 Notable black scientists, according to [Wikipedia](https://en.wikipedia.org/wiki/List_of_African-American_inventors_and_scientists)
 
 ![](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2024%20-%20african%20american%20achievements/scientists.png)
 
-### Previous contributions
 [2020 - Week 21 - Beach Volleyball](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2021%20-%20beach%20volleyball/volleyball%20script.R)
 
 Stats for Kerri Walsh Jennings and Misty May-Treanor over time. 
