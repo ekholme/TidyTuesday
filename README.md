@@ -1,13 +1,19 @@
 My contributions to [#TidyTuesday.](https://github.com/rfordatascience/tidytuesday)
 
 ## Most recent (finished) contribution:
-[2020 - Week 25 - African American History](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2025%20-%20african%20american%20history/african%20american%20history%20script.RR)
+[2020 - Week 32 - European Energy](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2032%20-%20euro%20energy/euro%20energy%20script.R)
+
+European energy production in 2018
+
+![](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2032%20-%20euro%20energy/euro%20energy%20script.R)
+
+### Previous contributions
+[2020 - Week 25 - African American History](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2025%20-%20african%20american%20history/african%20american%20history%20script.R)
 
 Progression of enslaved vs free African Americans in the US
 
 ![](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2025%20-%20african%20american%20history/slavery_map_prog.png)
 
-### Previous contributions
 [2020 - Week 24 - African American Achievements](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2024%20-%20african%20american%20achievements/black%20scientists%20script.R)
 
 Notable black scientists, according to [Wikipedia](https://en.wikipedia.org/wiki/List_of_African-American_inventors_and_scientists)
