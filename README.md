@@ -5,7 +5,7 @@ My contributions to [#TidyTuesday.](https://github.com/rfordatascience/tidytuesd
 
 European energy production in 2018
 
-![](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2032%20-%20euro%20energy/euro%20energy%20script.R)
+![](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2032%20-%20euro%20energy/energy.png)
 
 ### Previous contributions
 [2020 - Week 25 - African American History](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2025%20-%20african%20american%20history/african%20american%20history%20script.R)
