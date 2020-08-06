@@ -4,9 +4,10 @@
 library(ggplot2)
 library(ggtext)
 
-base_font <- "Arial Narrow"
+#approach for fonts may be to just post-hoc this in scripts
 
-theme_ee <- function(size = 12, fontfamily = base_font, base_color = "grey10", accent_color = "grey40") {
+
+theme_ee <- function(size = 11.5, base_font = "sans", base_color = "grey10", accent_color = "grey40") {
   half <- size / 2
   
   theme(line = element_line(color = base_color, size = .3, linetype = 1),
@@ -46,7 +47,7 @@ theme_ee <- function(size = 12, fontfamily = base_font, base_color = "grey10", a
 
 # Theme Dark --------------------------------------------------------------
 
-theme_eedark <- function(size = 12, fontfamily = base_font, base_color = "#cfd8dc", accent_color = "#717786") {
+theme_eedark <- function(size = 11.5, base_font = "sans", base_color = "#cfd8dc", accent_color = "#717786") {
   half <- size / 2
   
   theme(line = element_line(color = base_color, size = .3, linetype = 1),
