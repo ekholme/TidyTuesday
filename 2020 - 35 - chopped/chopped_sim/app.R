@@ -18,7 +18,7 @@ judges <- chopped %>%
     filter(n > 10) %>%
     pull(judge)
 
-judges <- judges[-c(10, 13)]
+judges <- judges[-c(10, 11, 13)]
 
 ingredients_df <- chopped %>%
     select(appetizer, entree, dessert) %>%
