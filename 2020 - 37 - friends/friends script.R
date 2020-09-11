@@ -22,7 +22,7 @@ main_cast <- friends %>%
 
 main_firsts <- str_remove_all(main_cast, " .*$")
 
-combos <- t(combn(main_cast, 2)) %>%
+combos <- t(combn(main_firsts, 2)) %>%
   as_tibble() %>%
   mutate(comb = glue("{ V1 } & { V2 }"),
          comb_inv = glue("{ V2 } & { V1 }"))
@@ -80,13 +80,14 @@ clusters_long %>%
   group_by(.cluster) %>%
   slice_max(n = 5, order_by = lines) %>%
   ungroup() %>%
+  mutate(.cluster = glue("Type { .cluster }")) %>%
   ggplot(aes(x = lines, y = reorder_within(exchange, lines, .cluster), fill = .cluster)) +
   geom_col() +
   facet_wrap(~.cluster, scales = "free_y") +
   scale_y_reordered() +
   scale_fill_viridis_d() +
   labs(
-    x = "Number of Lines",
+    x = "Average Number of Exchanges",
     y = NULL,
     title = "Types of Friends Episodes",
     subtitle = "This plot shows the results of k-means clustering used to estimate the types of episodes based on the number of exchanges between characters.",
