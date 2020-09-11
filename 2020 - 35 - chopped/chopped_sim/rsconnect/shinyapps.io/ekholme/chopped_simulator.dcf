@@ -1,0 +1,12 @@
+name: chopped_simulator
+title: chopped_simulator
+username:
+account: ekholme
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2725652
+bundleId: 3573259
+url: https://ekholme.shinyapps.io/chopped_simulator/
+when: 1598814707.13797
+asMultiple: FALSE
+asStatic: FALSE
