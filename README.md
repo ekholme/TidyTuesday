@@ -1,13 +1,20 @@
 My contributions to [#TidyTuesday.](https://github.com/rfordatascience/tidytuesday)
 
 ## Most recent (finished) contribution:
+[2020 - Week 37 - Friends](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2037%20-%20friends/friends%20script.R)
+
+K means clustering estimating types of Friends episodes based on exchanges between characters.
+
+![](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2037%20-%20friends/friend_types.png)
+
+### Previous contributions
 [2020 - Week 32 - European Energy](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2032%20-%20euro%20energy/euro%20energy%20script.R)
 
 European energy production in 2018
 
 ![](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2032%20-%20euro%20energy/energy.png)
 
-### Previous contributions
+
 [2020 - Week 25 - African American History](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2025%20-%20african%20american%20history/african%20american%20history%20script.R)
 
 Progression of enslaved vs free African Americans in the US
