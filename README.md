@@ -1,13 +1,19 @@
 My contributions to [#TidyTuesday.](https://github.com/rfordatascience/tidytuesday)
 
 ## Most recent (finished) contribution:
+[2020 - Week 43 - Great American Beer Festival](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2043%20-%20great%20american%20beer%20fest/va%20beer%20fest.R)
+
+Tracking Virginia breweries' performance at the Great American Beer Festival over time.
+
+![](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2043%20-%20great%20american%20beer%20fest/va_beers.png)
+
+### Previous contributions
 [2020 - Week 37 - Friends](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2037%20-%20friends/friends%20script.R)
 
 K means clustering estimating types of Friends episodes based on exchanges between characters.
 
 ![](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2037%20-%20friends/friend_types.png)
 
-### Previous contributions
 [2020 - Week 32 - European Energy](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2032%20-%20euro%20energy/euro%20energy%20script.R)
 
 European energy production in 2018
