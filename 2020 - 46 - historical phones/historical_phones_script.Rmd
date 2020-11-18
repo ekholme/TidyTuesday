@@ -1,0 +1,167 @@
+---
+title: "Historical Phones TT"
+author: "EE"
+date: "11/10/2020"
+output: html_document
+---
+
+General approach:
+-many models -- spline with gdp per capita and year predicting subs, by continent
+-other considerations
+ -may need to impute gdp for some countries?
+
+```{r}
+
+library(tidyverse)
+library(eemisc)
+library(harrypotter)
+library(splines)
+library(tidymodels)
+library(patchwork)
+library(kableExtra)
+
+herm <- hp(n = 1, option = "HermioneGranger")
+
+theme_set(theme_ee())
+
+mobile <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-11-10/mobile.csv')
+
+```
+
+```{r}
+mobile %>%
+  glimpse()
+```
+
+Viewing USA to see when we have more than 0 subs
+```{r}
+mobile %>%
+  filter(code == "USA") %>%
+  glimpse()
+```
+
+Looks like USA has >0 mobile subs for every year since 1990
+
+Plotting year against subs for countries
+```{r}
+mobile %>%
+  ggplot(aes(x = year, y = mobile_subs, group = entity)) +
+  geom_line(alpha = .7, color = herm) +
+  facet_wrap(~ continent)
+
+```
+
+Let's try plotting a few different splines
+```{r}
+plot_spline <- function(df) {
+  ggplot(mobile, aes(x = year, y = mobile_subs)) +
+    geom_smooth(
+      method = lm,
+      se = FALSE,
+      formula = y ~ ns(x, df = df),
+      color = herm
+    ) +
+    labs(
+      title = glue::glue("{ df } degrees of freedom")
+    ) +
+    theme_minimal()
+}
+```
+
+```{r}
+#plot_spline(2)
+
+plots_list <- map(c(2, 3, 4, 6, 8, 10), plot_spline)
+
+wrap_plots(plots_list)
+```
+
+
+
+Right -- so 4 looks to be about right. Everything above 4 seems identical to 4. Also maybe interesting to note that this looks very much like a sigmoid function.
+
+Next, let's fit a spline for each continent.
+
+```{r}
+complete_countries <- mobile %>%
+  group_by(entity) %>%
+  summarize(miss = sum(is.na(mobile_subs))) %>%
+  filter(miss == 0) %>%
+  pull(entity)
+
+continent_df <- mobile %>%
+  select(continent, entity, year, mobile_subs) %>%
+  filter(entity %in% complete_countries) %>%
+  group_by(continent) %>%
+  nest() %>%
+  mutate(model = map(data, ~lm(mobile_subs ~ ns(year, df = 4), data = .x)),
+         rsq = map_dbl(model, ~glance(.x) %>% pull(1))) 
+```
+
+
+```{r}
+continent_df
+```
+
+So, the R-squared values here seem pretty good considering we're only using year as a predictor. In Europe we're getting .86, which seems very high. What could be interesting, though, is to see which countries in each continent this model performs best on and which it performs worst on. This will give us a sense of what the most "typical" country is (the country that most closely follows the overall continent model) and what the most atypical country is (the country that least closely follows the overall continent model) in each continent.
+
+
+```{r}
+preds_data <- continent_df %>%
+  ungroup() %>%
+  mutate(preds = map(model, ~augment(.x) %>% select(.fitted)),
+         joined_data = map2(data, preds, bind_cols)) %>%
+    select(joined_data, 
+         continent_rsq = rsq,
+         continent) %>%
+    unnest(joined_data)
+
+rsq_df <- preds_data %>%
+  group_by(entity) %>%
+  mutate(avg = mean(mobile_subs),
+         res = (mobile_subs - .fitted)^2,
+         tot = (mobile_subs - .fitted)^2 + (.fitted - avg)^2) %>%
+  summarize(country_rsq = 1 - (sum(res)/sum(tot))) %>%
+  ungroup() %>%
+  left_join(x = preds_data %>% distinct(entity, continent), y = ., by = "entity")
+
+selected_rsq <- rsq_df %>%
+  group_by(continent) %>%
+  filter(country_rsq == max(country_rsq) | country_rsq == min(country_rsq)) %>%
+  mutate(type = if_else(country_rsq == max(country_rsq), "best fit", "worst fit")) %>%
+  select(continent, entity, country_rsq, type) %>%
+  arrange(continent, country_rsq)
+
+selected_rsq %>%
+  select(-type) %>%
+  kable(format = "html") %>%
+  kable_styling(bootstrap_options = c("condensed", "striped"))
+
+```
+
+Finally, let's take a look at these best- and worst-fitting countries graphically
+
+```{r}
+use_countries <- pull(selected_rsq, entity)
+
+mobile_small_joined <- mobile %>%
+  filter(entity %in% use_countries) %>%
+  left_join(selected_rsq, by = c("entity", "continent"))
+
+label_df <- mobile_small_joined %>%
+  group_by(entity) %>%
+  filter(mobile_subs == max(mobile_subs)) %>%
+  ungroup()
+  
+
+mobile %>%
+  filter(entity %in% use_countries) %>%
+  left_join(selected_rsq, by = c("entity", "continent")) %>%
+  ggplot(aes(x = year, y = mobile_subs, group = entity, color = type)) +
+  geom_line() +
+  geom_text(data = label_df, aes(label = entity), x = max(mobile$year), hjust = 1, fontface = "bold", show.legend = FALSE) +
+  facet_wrap(~ continent) +
+  scale_color_hp_d(option = "HermioneGranger",
+                   name = "Model Fit")
+```
+
