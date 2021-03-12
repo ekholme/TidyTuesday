@@ -1,13 +1,19 @@
 My contributions to [#TidyTuesday.](https://github.com/rfordatascience/tidytuesday)
 
 ## Most recent (finished) contribution:
+[2021 - Week 11 - Bechdel Test](https://github.com/ekholme/TidyTuesday/blob/master/2021%20-%2011%20-%20bechdel%20test/bechdel%20script.R)
+
+Comparing distributions over time of movies that pass and fail the Bechdel Test
+
+![](https://github.com/ekholme/TidyTuesday/blob/master/2021%20-%2011%20-%20bechdel%20test/bechdel.png)
+
+### Previous contributions
 [2021 - Week 7 - Wealth and Income](https://github.com/ekholme/TidyTuesday/blob/master/2021%20-%207%20-%20wealth%20and%20income/wealth_income_script.R)
 
 Looking at income inequality in the US over time.
 
 ![](https://github.com/ekholme/TidyTuesday/blob/master/2021%20-%207%20-%20wealth%20and%20income/income_inequality.png)
 
-### Previous contributions
 [2020 - Week 43 - Great American Beer Festival](https://github.com/ekholme/TidyTuesday/blob/master/2020%20-%2043%20-%20great%20american%20beer%20fest/va%20beer%20fest.R)
 
 Tracking Virginia breweries' performance at the Great American Beer Festival over time.
