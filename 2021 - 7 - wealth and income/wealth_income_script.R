@@ -26,7 +26,7 @@ df <- income_limits %>%
 disp_first <- round(df$disparity[df$year == 1967], 2)
 disp_last <- round(df$disparity[df$year == 2019], 2)
 
-df %>%
+p <- df %>%
   ggplot(aes(x = year, y = disparity)) +
   geom_line(size = 2) +
   annotate("richtext", x = 1967, y = 5,
@@ -56,4 +56,5 @@ df %>%
     plot.title = element_markdown(size = 25)
   )
   
-  
+ ggsave(here::here("2021 - 7 - wealth and income/income_inequality.png"), p, device = "png") 
+ 
