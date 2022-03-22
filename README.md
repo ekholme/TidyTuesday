@@ -1,13 +1,17 @@
 My contributions to [#TidyTuesday.](https://github.com/rfordatascience/tidytuesday)
 
 ## Most recent (finished) contribution:
+[2022 - Week 12 - US Baby Names](https://github.com/ekholme/TidyTuesday/blob/master/2022%20-%2012%20-%20baby_names/script.R)
+
+Looking at the popularity of my kids' names over time
+
+![](https://github.com/ekholme/TidyTuesday/blob/master/2022%20-%2012%20-%20baby_names/kiddos.png)
+
+### Previous contributions
 [2021 - Week 20 - US Broadband](https://github.com/ekholme/TidyTuesday/blob/master/2021%20-%2020%20-%20us%20broadband/script.R)
 
 Examining unequal broadband access in states
 
-![](https://github.com/ekholme/TidyTuesday/blob/master/2021%20-%2020%20-%20us%20broadband/broadband_sd.png)
-
-### Previous contributions
 [2021 - Week 11 - Bechdel Test](https://github.com/ekholme/TidyTuesday/blob/master/2021%20-%2011%20-%20bechdel%20test/bechdel%20script.R)
 
 Comparing distributions over time of movies that pass and fail the Bechdel Test
